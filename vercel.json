@@ -1,8 +1,11 @@
 {
+  "version": 2,
+  "cleanUrls": true,
+  "outputDirectory": "dist/client",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/api"
     }
   ]
 }
