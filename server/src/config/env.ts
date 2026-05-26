@@ -5,7 +5,7 @@ const envSchema = z.object({
   MONGODB_URI: z.string().min(1, "MONGODB_URI is required"),
   REDIS_URL: z.string().default("redis://localhost:6379"),
   GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY is required"),
-  FRONTEND_URL: z.string().default("http://localhost:8080"),
+  FRONTEND_URL: z.string().default("http://localhost:8080").transform((val) => val.replace(/\/$/, "")),
 });
 
 function validateEnv() {
