@@ -4,6 +4,15 @@ VedaAI is a high-fidelity, full-stack application designed for teachers and educ
 
 ---
 
+## 📸 Screenshots
+
+<p align="center">
+  <img src="./outputs/Screenshot%20from%202026-05-26%2014-51-17.png" width="48%" alt="VedaAI Dashboard" />
+  <img src="./outputs/Screenshot%20from%202026-05-26%2014-51-28.png" width="48%" alt="VedaAI Create Assignment" />
+</p>
+
+---
+
 ## 📐 Architecture & System Flow
 
 The application leverages a modern, decoupled architecture designed for high responsiveness, decoupling long-running LLM generation tasks from the request-response cycle.
@@ -21,7 +30,7 @@ graph TD
     BE -.->|9. Listen for Job events| Redis
     BE -->|10. Status Completed Event| FE
     FE -->|11. View & Download PDF| BE
-    BE -->|12. Compile PDF (pdf-lib)| FE
+    BE -->|12. Compile PDF via pdf-lib| FE
 ```
 
 ### Components:
