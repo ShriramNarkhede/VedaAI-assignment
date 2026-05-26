@@ -5,9 +5,10 @@ import { connectDB } from "./config/db.js";
 import { initSocketIO } from "./sockets/index.js";
 import { env } from "./config/env.js";
 
-// ─── Import worker to register it in the same process (dev mode) ──────────────
-// In production, run the worker as a separate process with `npm run worker`
-if (process.env.NODE_ENV !== "production") {
+// ─── Import worker to register it in the same process by default ──────────────
+// This allows running the server and worker in a single Railway service.
+// Can be disabled by setting DISABLE_IN_PROCESS_WORKER=true.
+if (process.env.DISABLE_IN_PROCESS_WORKER !== "true") {
   import("./workers/paper.worker.js").catch(console.error);
 }
 
