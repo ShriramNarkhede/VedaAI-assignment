@@ -43,6 +43,45 @@ graph TD
 - **Instant Search/Filter:** Filter assignments instantly on the dashboard by title, topic, or instructions.
 - **Clean Deletion:** Delete assignments cleanly from the database, instantly cascading to clean up associated generated papers.
 
+## 📂 Directory Structure
+
+```
+.
+├── api/
+│   └── index.js             # Vercel Serverless Function entry point
+├── public/                  # Public static assets
+├── src/                     # Frontend Source code (TanStack Start v1)
+│   ├── assets/              # Icons and images
+│   ├── components/          # React components
+│   │   ├── AppShell.tsx     # Navigation sidebar & layout structure
+│   │   └── ui/              # Reusable UI controls (buttons, dialogs, etc.)
+│   ├── hooks/               # Custom React hooks (use-mobile.tsx)
+│   ├── lib/                 # Utilities (API client, socket connection)
+│   ├── routes/              # TanStack Router page routes
+│   ├── router.tsx           # Router configuration
+│   ├── server.ts            # Entrypoint for Vinxi/Tanstack Start server
+│   └── start.ts             # Application entry configuration
+├── server/                  # Backend Source code (Express API)
+│   ├── src/
+│   │   ├── config/          # Configurations (Database, Redis, environment)
+│   │   ├── controllers/     # Request handlers
+│   │   ├── models/          # Mongoose database schemas (MongoDB)
+│   │   ├── queues/          # BullMQ task queues for paper generation (Redis)
+│   │   ├── routes/          # Express API route endpoints
+│   │   ├── services/        # Business logic (Gemini integration, PDF creation)
+│   │   ├── sockets/         # Real-time WebSockets logic (Socket.io)
+│   │   ├── validators/      # Zod validation schemas
+│   │   ├── workers/         # BullMQ queue background worker
+│   │   ├── app.ts           # Express application initialization
+│   │   └── index.ts         # Server bootstrap and entry point
+│   ├── Dockerfile
+│   └── package.json
+├── docker-compose.yml       # Local MongoDB and Redis services
+├── package.json
+├── vercel.json              # Vercel deployment configuration
+└── README.md
+```
+
 ---
 
 ## 📡 API Endpoints Reference
@@ -112,3 +151,29 @@ VITE_API_URL=http://localhost:3001
    Open `http://localhost:8080` in your browser.
 
 ---
+
+## 🚀 Production Deployment
+
+### Frontend (Vercel)
+The frontend is built using **TanStack Start (v1)** and deployed on **Vercel** with the **Node.js Serverless runtime**. 
+
+1. **Config (`vercel.json`)**: Serves static assets from `dist/client` and rewrites page requests to the serverless entry handler at `api/index.js`.
+2. **Environment Variables**:
+   - `VITE_API_URL`: Set this in your Vercel Dashboard to your deployed backend URL on Railway (e.g. `https://clever-vision-production-3061.up.railway.app`). Do not add a trailing slash.
+
+### Backend (Railway)
+The backend is a **TypeScript/Express** application deployed on **Railway** along with a **Redis** instance and a **MongoDB Atlas** database.
+
+1. **Infrastructure**:
+   - **MongoDB Atlas**: Fully managed cloud MongoDB instance.
+   - **Railway Redis**: Redis database used by BullMQ for task orchestrations and job queuing.
+2. **Environment Variables**:
+   - `PORT`: Automatically configured by Railway.
+   - `MONGODB_URI`: Your MongoDB Atlas connection string.
+   - `REDIS_URL`: The Redis connection string provided by Railway (e.g. `redis://default:password@host:port` or `rediss://...`).
+   - `GEMINI_API_KEY`: Your Gemini API developer key.
+   - `FRONTEND_URL`: The URL of your Vercel frontend deployment (e.g. `https://vedaaiassignment.vercel.app`). Trailing slashes are automatically sanitized on startup.
+3. **Queue Worker**: In production, the background BullMQ queue worker runs in the same process as the Express server by default, eliminating the need to run and pay for a separate worker container.
+
+---
+
