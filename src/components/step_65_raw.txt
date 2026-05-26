@@ -1,0 +1,30 @@
+<USER_REQUEST>
+add icons from this to our  menu export default function Menu() {
+  return (
+    <div className="flex flex-col items-start gap-2 min-w-screen min-h-screen absolute left-0 top-[194px]">
+      <div className="flex py-[9px] px-3 items-center gap-2 rounded-lg w-full h-10">
+        <div className="shrink-0 w-5 h-5 overflow-hidden relative">
+          <svg
+            width="8"
+            height="8"
+            viewBox="0 0 8 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-1.5 h-1.5 absolute left-3 top-3 "
+          >
+            <path
+              d="M6.83333 1H1V6.83333H6.83333V1Z"
+              stroke="#5E5E5E"
+              strokeOpacity="0.8"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <svg
+            width="8"
+            height="8"
+            viewBox="0 0 8 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+<truncated 10511 bytes>
